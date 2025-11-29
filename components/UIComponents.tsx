@@ -7,11 +7,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({ 
-  children, variant = 'primary', size = 'md', isLoading, className = '', ...props 
+export const Button: React.FC<ButtonProps> = ({
+  children, variant = 'primary', size = 'md', isLoading, className = '', ...props
 }) => {
   const baseStyles = "inline-flex items-center justify-center font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg";
-  
+
   const variants = {
     primary: "bg-brand-600 text-white hover:bg-brand-700 focus:ring-brand-500",
     secondary: "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-brand-500",
@@ -26,7 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   return (
-    <button 
+    <button
       className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
       disabled={isLoading || props.disabled}
       {...props}
@@ -85,7 +85,12 @@ export const Select: React.FC<SelectProps> = ({ label, options, className = '', 
 );
 
 // --- Badge ---
-export const Badge: React.FC<{ children: React.ReactNode; color?: 'green' | 'blue' | 'yellow' | 'gray' }> = ({ children, color = 'gray' }) => {
+interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
+  children: React.ReactNode;
+  color?: 'green' | 'blue' | 'yellow' | 'gray';
+}
+
+export const Badge: React.FC<BadgeProps> = ({ children, color = 'gray', className = '', ...props }) => {
   const colors = {
     green: 'bg-green-100 text-green-800',
     blue: 'bg-blue-100 text-blue-800',
@@ -93,7 +98,7 @@ export const Badge: React.FC<{ children: React.ReactNode; color?: 'green' | 'blu
     gray: 'bg-gray-100 text-gray-800',
   };
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${colors[color]}`}>
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${colors[color]} ${className}`} {...props}>
       {children}
     </span>
   );
